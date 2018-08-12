@@ -65,8 +65,10 @@ Theta2_grad = zeros(size(Theta2));
 X = [ones(m,1) X];  %Add bias column of 1s in front
 for i=1 : m
   a1 =  X(i,:)';  %input with bias
+  z2 = Theta1 * a1;
   a2 = sigmoid(Theta1 * a1);
   a2 = [1;a2];  %add the bias
+  z3 = Theta2 * a2;
   h = sigmoid(Theta2 * a2); %also a3 or the output vector
   
   %Convert y to vector
@@ -77,9 +79,19 @@ for i=1 : m
   Theta2_noBias = Theta2(:,2:end);
   
   J = J + (-yVect'*log(h) - (1-yVect')*log(1-h)) + lambda/(2*m)*(sum(Theta1_noBias(:).^2) + sum(Theta2_noBias(:).^2));
+  
+  %Compute delta
+  delta3 = h - yVect; %a3 - y
+  z2 = [1;z2];
+  delta2 = Theta2' * delta3 .* sigmoidGradient(z2);
+  
+  Theta1_grad = Theta1_grad + delta2(2:end) * a1';
+  Theta2_grad = Theta2_grad + delta3 * a2';
 endfor
 
 J = J/m;
+Theta1_grad = Theta1_grad ./ m;
+Theta2_grad = Theta2_grad ./ m;
 
 size(Theta2(:,2:end)(:));
 %idx = 4000;
