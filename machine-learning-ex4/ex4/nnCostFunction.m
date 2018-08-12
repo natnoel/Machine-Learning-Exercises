@@ -62,9 +62,36 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+X = [ones(m,1) X];  %Add bias column of 1s in front
+for i=1 : m
+  a1 =  X(i,:)';  %input with bias
+  a2 = sigmoid(Theta1 * a1);
+  a2 = [1;a2];  %add the bias
+  h = sigmoid(Theta2 * a2); %also a3 or the output vector
+  
+  %Convert y to vector
+  yVect = zeros(num_labels, 1);
+  yVect(y(i)) = 1;
+  
+  J = J + (-yVect'*log(h) - (1-yVect')*log(1-h));
+endfor
 
+J = J/m;
 
+%idx = 4000;
+%X_row = X(idx,:);     %1st row
+%z2 = Theta1 * X_row';
+%a2 = sigmoid(z2);
+%a2 = [1 ; a2];
+%size(a2)
+%z3 = Theta2 * a2;
+%a3 = sigmoid(z3);
 
+%yVect = zeros(num_labels, 1);
+%yVect(y(idx)) = 1;
+
+%h = a3;
+%cost = -yVect'*log(h) - (1-yVect')*log(1-h);
 
 
 
