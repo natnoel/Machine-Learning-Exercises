@@ -73,11 +73,15 @@ for i=1 : m
   yVect = zeros(num_labels, 1);
   yVect(y(i)) = 1;
   
-  J = J + (-yVect'*log(h) - (1-yVect')*log(1-h));
+  Theta1_noBias = Theta1(:,2:end);
+  Theta2_noBias = Theta2(:,2:end);
+  
+  J = J + (-yVect'*log(h) - (1-yVect')*log(1-h)) + lambda/(2*m)*(sum(Theta1_noBias(:).^2) + sum(Theta2_noBias(:).^2));
 endfor
 
 J = J/m;
 
+size(Theta2(:,2:end)(:));
 %idx = 4000;
 %X_row = X(idx,:);     %1st row
 %z2 = Theta1 * X_row';
