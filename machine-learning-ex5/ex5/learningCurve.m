@@ -60,7 +60,7 @@ error_val   = zeros(m, 1);
 %size(yval)
 %size(lambda)
 
-mval = size(Xval,1)
+mval = size(Xval,1);
 for i = 1:m
   %Train theta
   theta = trainLinearReg(X(1:i,:), y(1:i), lambda);
