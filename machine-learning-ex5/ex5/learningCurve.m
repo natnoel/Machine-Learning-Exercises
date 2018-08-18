@@ -54,10 +54,25 @@ error_val   = zeros(m, 1);
 % ---------------------- Sample Solution ----------------------
 
 
+%size(X)
+%size(y)
+%size(Xval)
+%size(yval)
+%size(lambda)
 
-
-
-
+mval = size(Xval,1)
+for i = 1:m
+  %Train theta
+  theta = trainLinearReg(X(1:i,:), y(1:i), lambda);
+  
+  %Predict training set
+  h = X(1:i,:)*theta;
+  error_train(i) = 1/(2*i)*sum((h-y(1:i)).^2);
+  
+  %Predict validation set
+  hval = Xval*theta;
+  error_val(i) = 1/(2*mval)*sum((hval-yval).^2);
+end
 
 % -------------------------------------------------------------
 
