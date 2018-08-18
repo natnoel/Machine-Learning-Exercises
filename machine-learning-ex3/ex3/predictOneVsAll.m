@@ -34,7 +34,7 @@ X = [ones(m, 1) X];
 temp = sigmoid(X*all_theta');
 %all_theta(1,1:5)
 [maxVal, maxIdx] = max(temp, [], 2);
-maxIdx(maxIdx == 10) = 0;
+%maxIdx(maxIdx == 10) = 0;
 p = maxIdx;
 %p(1:10)
 
