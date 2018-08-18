@@ -90,8 +90,12 @@ for i=1 : m
 endfor
 
 J = J/m;
-Theta1_grad = Theta1_grad ./ m;
-Theta2_grad = Theta2_grad ./ m;
+
+Theta1_noBias = [zeros(size(Theta1,1),1) Theta1_noBias];
+Theta2_noBias = [zeros(size(Theta2,1),1) Theta2_noBias];
+
+Theta1_grad = Theta1_grad ./ m +  lambda/m*Theta1_noBias;
+Theta2_grad = Theta2_grad ./ m +  lambda/m*Theta2_noBias;
 
 size(Theta2(:,2:end)(:));
 %idx = 4000;
