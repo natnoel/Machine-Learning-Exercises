@@ -22,16 +22,18 @@ grad = zeros(size(theta));
 
 
 
-
-
-
-
-
-
+%size(X)      %[12,2]
+%size(y)      %[12,1]
+%size(theta)  %[2,1]
+%size(lambda) %[1,1]
+h = X * theta;
+J = 1/(2*m)*sum((h-y).^2) + lambda/(2*m)*sum(theta(2:end).^2);
 
 
 % =========================================================================
 
-grad = grad(:);
+theta_nobias = theta;
+theta_nobias(1) = 0;
+grad = 1/m * X'*(h-y) + lambda/m*theta_nobias;
 
 end
